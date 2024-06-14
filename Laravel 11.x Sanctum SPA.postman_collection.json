@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "effb6fb4-a6e1-483e-8832-76cd532778cf",
+		"name": "Laravel 11.x Sanctum SPA",
+		"description": "A template collection for authentication to Laravel 11.x using Sanctum SPA authentication.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34635108"
+	},
+	"item": [
+		{
+			"name": "csrf-cookie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/sanctum/csrf-cookie",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"sanctum",
+						"csrf-cookie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const jar = pm.cookies.jar();",
+					"",
+					"jar.get(\"http://localhost:5174\", \"XSRF-TOKEN\", (err, cookie) => {",
+					"",
+					"    pm.request.addHeader({",
+					"        key: \"X-XSRF-TOKEN\",",
+					"        value: cookie",
+					"    });",
+					"",
+					"    pm.request.addHeader({",
+					"        key: \"Origin\",",
+					"        value: \"http://localhost:5174\"",
+					"    });",
+					"",
+					"    pm.request.addHeader({",
+					"        key: \"Referer\",",
+					"        value: \"http://localhost:5174\"",
+					"    });",
+					"",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost",
+			"type": "string"
+		}
+	]
+}
